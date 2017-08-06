@@ -27,8 +27,8 @@ dependencies {
     compile 'org.jboss.resteasy:resteasy-guice:3.0.+'
     compile 'org.jboss.resteasy:resteasy-jackson2-provider:3.0.+'
 
-    compile 'com.google.inject:guice:4.+'
-    compile 'com.google.guava:guava:19.+'
+    compile 'com.google.inject:guice:4.1.+'
+    compile 'com.google.guava:guava:22.+'
 
     testCompile 'junit:junit:4.11'
     testCompile 'org.jukito:jukito:1.0'
