@@ -14,6 +14,7 @@ import models.UpdatedNote;
 import javax.inject.Inject;
 import java.util.Date;
 
+import static com.google.appengine.api.datastore.Query.FilterOperator.EQUAL;
 import static com.google.common.collect.ImmutableList.toImmutableList;
 
 public class DatastoreNotesDao implements NotesDao {
@@ -34,6 +35,7 @@ public class DatastoreNotesDao implements NotesDao {
     @Override
     public ImmutableList<Note> getNodes(String userId) {
         Query query = new Query(NOTE_KIND)
+                .setFilter(new Query.FilterPredicate(PROP_USER_ID, EQUAL, userId))
                 .addSort(PROP_MODIFIER, Query.SortDirection.DESCENDING);
         PreparedQuery preparedQuery = datastoreService.prepare(query);
         return Streams.stream(preparedQuery.asIterator())
