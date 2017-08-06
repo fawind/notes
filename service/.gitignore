@@ -1,0 +1,13 @@
+# Build files
+build
+out
+
+# Idea files
+.idea
+*.iml
+
+# Gradle wrapper
+.gradle
+gradle
+gradlew
+gradlew.bat
