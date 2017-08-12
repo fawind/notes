@@ -3,10 +3,12 @@ package resources;
 import accessors.NotesDao;
 import api.NotesService;
 import com.google.common.collect.ImmutableList;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import models.UpdatedNote;
 import models.Note;
 
 import javax.inject.Inject;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.SecurityContext;
 
 public class NotesResource implements NotesService {
@@ -30,12 +32,20 @@ public class NotesResource implements NotesService {
 
     @Override
     public void updateNote(SecurityContext securityContext, String noteId, UpdatedNote note) {
-        notesDao.updateNote(getUserId(securityContext), noteId, note);
+        try {
+            notesDao.updateNote(getUserId(securityContext), noteId, note);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
     @Override
     public void deleteNote(SecurityContext securityContext, String noteId) {
-        notesDao.deleteNote(getUserId(securityContext), noteId);
+        try {
+            notesDao.deleteNote(getUserId(securityContext), noteId);
+        } catch (IllegalArgumentException e) {
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
     private String getUserId(SecurityContext securityContext) {

@@ -2,6 +2,7 @@ package accessors;
 
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -10,20 +11,24 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import models.Note;
 import models.UpdatedNote;
+import sun.plugin.dom.exception.InvalidStateException;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.logging.Logger;
 
+import static accessors.DatastoreNoteEntity.KIND;
+import static accessors.DatastoreNoteEntity.PROP_CONTENT;
+import static accessors.DatastoreNoteEntity.PROP_CREATED;
+import static accessors.DatastoreNoteEntity.PROP_MODIFIER;
+import static accessors.DatastoreNoteEntity.PROP_USER_ID;
 import static com.google.appengine.api.datastore.Query.FilterOperator.EQUAL;
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static java.lang.String.format;
 
 public class DatastoreNotesDao implements NotesDao {
 
-    private static final String NOTE_KIND = "NOTE_V01";
-    private static final String PROP_USER_ID = "userId";
-    private static final String PROP_CONTENT = "content";
-    private static final String PROP_CREATED = "created";
-    private static final String PROP_MODIFIER = "modified";
+    private static Logger log = Logger.getLogger(DatastoreNotesDao.class.getName());
 
     private final DatastoreService datastoreService;
 
@@ -34,7 +39,7 @@ public class DatastoreNotesDao implements NotesDao {
 
     @Override
     public ImmutableList<Note> getNodes(String userId) {
-        Query query = new Query(NOTE_KIND)
+        Query query = new Query(KIND)
                 .setFilter(new Query.FilterPredicate(PROP_USER_ID, EQUAL, userId))
                 .addSort(PROP_MODIFIER, Query.SortDirection.DESCENDING);
         PreparedQuery preparedQuery = datastoreService.prepare(query);
@@ -45,7 +50,7 @@ public class DatastoreNotesDao implements NotesDao {
 
     @Override
     public String createNote(String userId) {
-        Entity newEntity = new Entity(NOTE_KIND);
+        Entity newEntity = new Entity(KIND);
         newEntity.setProperty(PROP_USER_ID, userId);
         newEntity.setProperty(PROP_CONTENT, "");
         newEntity.setProperty(PROP_CREATED, new Date());
@@ -56,17 +61,41 @@ public class DatastoreNotesDao implements NotesDao {
 
     @Override
     public void updateNote(String userId, String noteId, UpdatedNote note) {
-        Key key = KeyFactory.createKey(NOTE_KIND, Long.valueOf(noteId));
-        Entity updatedEntity = new Entity(key);
-        updatedEntity.setProperty(PROP_CONTENT, note.getContent());
-        updatedEntity.setProperty(PROP_MODIFIER, new Date());
-        datastoreService.put(updatedEntity);
+        Key key = KeyFactory.createKey(KIND, Long.valueOf(noteId));
+        try {
+            Entity entity = datastoreService.get(key);
+            String ownerId = (String) entity.getProperty(PROP_USER_ID);
+            if (!ownerId.equals(userId)) {
+                log.severe(format(
+                        "User %s tried to update note %s of user %s", userId, noteId, ownerId));
+                throw new EntityNotFoundException(key);
+            }
+            entity.setProperty(PROP_CONTENT, note.getContent());
+            entity.setProperty(PROP_MODIFIER, new Date());
+            datastoreService.put(entity);
+        } catch (EntityNotFoundException e) {
+            throw new IllegalArgumentException(
+                    format("No note found for userId %s and noteId %s", userId, noteId));
+        }
+
     }
 
     @Override
     public void deleteNote(String userId, String noteId) {
-        Key key = KeyFactory.createKey(NOTE_KIND, Long.valueOf(noteId));
-        datastoreService.delete(key);
+        Key key = KeyFactory.createKey(KIND, Long.valueOf(noteId));
+        try {
+            Entity entity = datastoreService.get(key);
+            String ownerId = (String) entity.getProperty(PROP_USER_ID);
+            if (!ownerId.equals(userId)) {
+                log.severe(format(
+                        "User %s tried to delete note %s of user %s", userId, noteId, ownerId));
+                throw new EntityNotFoundException(key);
+            }
+            datastoreService.delete(key);
+        } catch (EntityNotFoundException e) {
+            throw new IllegalArgumentException(
+                    format("No note found for userId %s and noteId %s", userId, noteId));
+        }
     }
 
     private Note getNoteFromEntity(Entity entity) {

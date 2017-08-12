@@ -11,6 +11,7 @@ import com.google.inject.Binder;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import exceptions.DefaultExceptionMapper;
 import resources.NotesResource;
 import resources.PingResource;
 
@@ -23,6 +24,7 @@ public class Application extends javax.ws.rs.core.Application implements Module 
 
     @Override
     public void configure(Binder binder) {
+        binder.bind(DefaultExceptionMapper.class);
         binder.bind(AuthenticationFilter.class);
         binder.bind(NotesDao.class).to(DatastoreNotesDao.class);
         binder.bind(PingResource.class);
