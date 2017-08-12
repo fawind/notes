@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 
 @Path("/ping")
 @Produces(MediaType.APPLICATION_JSON)
-public interface PingResource {
+public interface PingService {
 
     @GET
     Response ping();

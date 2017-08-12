@@ -23,8 +23,8 @@ repositories {
 dependencies {
     compile 'com.google.appengine:appengine-api-1.0-sdk:+'
 
-    compile 'org.jboss.resteasy:resteasy-jaxrs:3.0.+'
-    compile 'org.jboss.resteasy:resteasy-guice:3.0.+'
+    compile 'org.jboss.resteasy:resteasy-jaxrs:3.1.+'
+    compile 'org.jboss.resteasy:resteasy-guice:3.1.+'
     compile 'org.jboss.resteasy:resteasy-jackson2-provider:3.0.+'
 
     compile 'com.google.inject:guice:4.1.+'
@@ -37,10 +37,9 @@ dependencies {
 }
 
 appengine {
-    // Dev server
     run {
-        jvmFlags = ['-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005',
-                    '-Dappengine.fullscan.seconds=5']
+//        jvmFlags = ['-Dappengine.fullscan.seconds=5',
+//            '-Xdebug', '-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005']
         port = 8080
     }
 

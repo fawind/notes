@@ -12,7 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(JukitoRunner.class)
 public class PingResourceTest {
 
-    @Inject private PingService resource;
+    @Inject private PingResource resource;
 
     @Test
     public void whenInvoked_thenReturnSuccessfulResponse() {

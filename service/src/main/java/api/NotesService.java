@@ -21,7 +21,7 @@ import java.util.List;
 @Path("/notes")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public interface NotesResource {
+public interface NotesService {
 
     @GET
     List<Note> getNotes(@Context SecurityContext securityContext);

@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Resteasy Page</title>
+    <meta name="google-signin-client_id" content="998747770178-tsvdpds9s2kam1u57u67ltuj383f7p3s.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
-    Hello World!
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<script>
+  function onSignIn(googleUser) {
+    console.log('GUser:', googleUser);
+    console.log('id_token:', googleUser.getAuthResponse().id_token);
+  }
+</script>
 </body>
 </html>

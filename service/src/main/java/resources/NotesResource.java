@@ -1,7 +1,7 @@
 package resources;
 
 import accessors.NotesDao;
-import api.NotesResource;
+import api.NotesService;
 import com.google.common.collect.ImmutableList;
 import models.UpdatedNote;
 import models.Note;
@@ -9,12 +9,12 @@ import models.Note;
 import javax.inject.Inject;
 import javax.ws.rs.core.SecurityContext;
 
-public class NotesService implements NotesResource {
+public class NotesResource implements NotesService {
 
     private final NotesDao notesDao;
 
     @Inject
-    public NotesService(NotesDao notesDao) {
+    public NotesResource(NotesDao notesDao) {
         this.notesDao = notesDao;
     }
 

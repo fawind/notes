@@ -1,8 +1,10 @@
 package resources;
 
+import api.PingService;
+
 import javax.ws.rs.core.Response;
 
-public class PingService implements api.PingResource {
+public class PingResource implements PingService {
 
     @Override
     public Response ping() {
