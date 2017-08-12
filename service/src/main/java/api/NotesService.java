@@ -2,6 +2,7 @@ package api;
 
 import auth.Secured;
 import models.Note;
+import models.NoteId;
 import models.UpdatedNote;
 
 import javax.ws.rs.Consumes;
@@ -27,7 +28,7 @@ public interface NotesService {
     List<Note> getNotes(@Context SecurityContext securityContext);
 
     @POST
-    String createNote(@Context SecurityContext securityContext);
+    NoteId createNote(@Context SecurityContext securityContext);
 
     @Path("{noteId}")
     @PUT

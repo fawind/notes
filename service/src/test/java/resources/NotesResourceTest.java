@@ -32,8 +32,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @RunWith(JukitoRunner.class)
 public class NotesResourceTest extends DatastoreBaseTest {
 
-    private static final String USER_ID = "userIdA";
-
     public static class Module extends JukitoModule {
         @Override
         protected void configureTest() {
@@ -86,7 +84,7 @@ public class NotesResourceTest extends DatastoreBaseTest {
         String userId = "userIdA";
 
         // WHEN
-        String noteId = notesResource.createNote(getSecurityContext(userId));
+        String noteId = notesResource.createNote(getSecurityContext(userId)).getNoteId();
 
         // THEN
         Entity newNote = getEntity(noteId);
@@ -110,7 +108,7 @@ public class NotesResourceTest extends DatastoreBaseTest {
                 modifiedOrdering.immutableSortedCopy(toNotes(existingKeys, existingNotes));
 
         // WHEN
-        String newNoteId = notesResource.createNote(getSecurityContext(userId));
+        String newNoteId = notesResource.createNote(getSecurityContext(userId)).getNoteId();
         ImmutableList<Note> notes = notesResource.getNotes(getSecurityContext(userId));
 
         // THEN
@@ -256,7 +254,7 @@ public class NotesResourceTest extends DatastoreBaseTest {
         ImmutableList<Note> notes = notesResource.getNotes(getSecurityContext(userId));
 
         // THEN
-        assertThat(notes).hasSize(oldNotes.size() - 1);
+        assertThat(notes).hasSize(2);
         assertThat(notes.get(0)).isEqualTo(oldNotes.get(0));
         assertThat(notes.get(1)).isEqualTo(oldNotes.get(2));
     }

@@ -4,6 +4,7 @@ import accessors.NotesDao;
 import api.NotesService;
 import com.google.common.collect.ImmutableList;
 import models.Note;
+import models.NoteId;
 import models.UpdatedNote;
 
 import javax.inject.Inject;
@@ -25,8 +26,8 @@ public class NotesResource implements NotesService {
     }
 
     @Override
-    public String createNote(SecurityContext securityContext) {
-        return notesDao.createNote(getUserId(securityContext));
+    public NoteId createNote(SecurityContext securityContext) {
+        return new NoteId(notesDao.createNote(getUserId(securityContext)));
     }
 
     @Override
