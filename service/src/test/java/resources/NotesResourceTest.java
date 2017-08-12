@@ -19,7 +19,6 @@ import testutils.DatastoreBaseTest;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.core.SecurityContext;
 import java.util.Comparator;
 import java.util.Date;
 

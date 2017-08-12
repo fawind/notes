@@ -10,7 +10,6 @@ import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.ext.Provider;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
         if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-            throw new NotAuthorizedException("Authorization header must be provided");
+            throw new NotAuthorizedException("Invalid authorization header");
         }
         String token = authorizationHeader.substring("Bearer".length()).trim();
 
@@ -40,8 +39,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
             GoogleIdToken idToken = validateToken(token);
             setSecurityContext(requestContext, idToken);
         } catch (Exception e) {
-            requestContext.abortWith(
-                Response.status(Response.Status.UNAUTHORIZED).build());
+            throw new NotAuthorizedException("Invalid authorization header", e);
         }
     }
 

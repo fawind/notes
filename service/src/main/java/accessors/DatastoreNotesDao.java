@@ -11,7 +11,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import models.Note;
 import models.UpdatedNote;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import javax.inject.Inject;
 import java.util.Date;

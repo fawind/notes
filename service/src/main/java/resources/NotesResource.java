@@ -3,9 +3,8 @@ package resources;
 import accessors.NotesDao;
 import api.NotesService;
 import com.google.common.collect.ImmutableList;
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import models.UpdatedNote;
 import models.Note;
+import models.UpdatedNote;
 
 import javax.inject.Inject;
 import javax.ws.rs.NotFoundException;
