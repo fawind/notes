@@ -6,7 +6,7 @@ import models.Note;
 
 public interface NotesDao {
 
-    ImmutableList<Note> getNodes(String userId);
+    ImmutableList<Note> getNotes(String userId);
 
     String createNote(String userId);
 

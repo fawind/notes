@@ -22,7 +22,7 @@ public class NotesResource implements NotesService {
 
     @Override
     public ImmutableList<Note> getNotes(SecurityContext securityContext) {
-        return notesDao.getNodes(getUserId(securityContext));
+        return notesDao.getNotes(getUserId(securityContext));
     }
 
     @Override

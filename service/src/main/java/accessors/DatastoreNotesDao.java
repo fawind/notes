@@ -37,7 +37,7 @@ public class DatastoreNotesDao implements NotesDao {
     }
 
     @Override
-    public ImmutableList<Note> getNodes(String userId) {
+    public ImmutableList<Note> getNotes(String userId) {
         Query query = new Query(KIND)
                 .setFilter(new Query.FilterPredicate(PROP_USER_ID, EQUAL, userId))
                 .addSort(PROP_MODIFIER, Query.SortDirection.DESCENDING);
@@ -76,7 +76,6 @@ public class DatastoreNotesDao implements NotesDao {
             throw new IllegalArgumentException(
                     format("No note found for userId %s and noteId %s", userId, noteId));
         }
-
     }
 
     @Override
