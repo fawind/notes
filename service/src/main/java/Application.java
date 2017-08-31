@@ -22,6 +22,8 @@ public class Application extends javax.ws.rs.core.Application implements Module 
     private final static String AUTH_PROPERTIES = "auth";
     private final static String CLIENT_ID_KEY = "clientId";
 
+    public Application() {}
+
     @Override
     public void configure(Binder binder) {
         binder.bind(DefaultExceptionMapper.class);
