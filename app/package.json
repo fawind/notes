@@ -9,10 +9,12 @@
     "test": "./node_modules/.bin/jest --config test.json -u"
   },
   "devDependencies": {
+    "@types/gapi.auth2": "0.0.43",
     "@types/node": "^8.0.24",
     "@types/react": "^16.0.2",
     "@types/react-dom": "^15.5.3",
     "@types/react-hot-loader": "^3.0.3",
+    "@types/react-redux": "^5.0.5",
     "@types/webpack": "^3.0.9",
     "@types/webpack-dev-server": "^2.4.1",
     "@types/webpack-env": "^1.13.0",
@@ -32,8 +34,12 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-google-login": "^2.9.3",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",
+    "redoodle": "^2.2.2",
     "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "tslib": "^1.7.1"
   }
 }

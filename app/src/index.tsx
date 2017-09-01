@@ -1,33 +1,30 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { AppContainer } from 'react-hot-loader';
 
-import { App } from './app';
+import { AppProvider } from './appProvider';
 
 const renderRoot = (app: JSX.Element) => {
   ReactDOM.render(app, document.getElementById('root'));
 };
 
-if (process.env.NODE_ENV === 'production') {
-  renderRoot((
-    <App />
-  ));
-} else {
-  // tslint:disable-next-line:no-var-requires
-  const HotContainer = require('react-hot-loader').AppContainer;
-  renderRoot((
-    <HotContainer>
-      <App />
-    </HotContainer>
-  ));
+const renderDev = (Component: React.StatelessComponent<any>) => {
+  renderRoot(
+    <AppContainer>
+      <Component />
+    </AppContainer>,
+  );
+};
 
-  if (module.hot) {
-    module.hot.accept('./app', async () => {
-      const NextApp = (await System.import('./app')).App;
-      renderRoot((
-        <HotContainer>
-          <NextApp />
-        </HotContainer>
-      ));
-    });
+const init = () => {
+  if (process.env.NODE_ENV === 'production') {
+    renderRoot(<AppProvider />);
+  } else {
+    renderDev(AppProvider);
+    if (module.hot) {
+      module.hot.accept('./appProvider', () => renderDev(AppProvider));
+    }
   }
-}
+};
+
+init();
