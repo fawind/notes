@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
   root: path.resolve(__dirname),
@@ -75,10 +74,10 @@ module.exports = (env = {}) => {
         },
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract([
-            'css-loader?{modules: false}',
-            'postcss-loader',
-          ]),
+          use: [
+            'style-loader',
+            'css-loader',
+          ],
         },
         {
           test: /\.(woff|woff2|ttf|eot)$/,

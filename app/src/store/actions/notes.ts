@@ -1,16 +1,19 @@
-import { NoteId } from '@src/model';
+import { INote, NoteId } from '@src/model';
 import { TypedAction } from 'redoodle';
 
-export const AddNote = TypedAction.define('ADD_NOTE')<{
+export const NotesLoaded = TypedAction.define('NOTES_LOADED')<{
+  notes: INote[],
+}>();
+export const NoteAdded = TypedAction.define('NOTE_ADDED')<{
   noteId: NoteId;
 }>();
-export const DeleteNote = TypedAction.define('DELETE_NOTE')<{
+export const NoteDeleted = TypedAction.define('NOTE_DELETED')<{
   noteId: NoteId;
 }>();
-export const SaveNote = TypedAction.define('SAVE_NOTE')<{
+export const NoteSaved = TypedAction.define('NOTE_SAVED')<{
   noteId: NoteId;
   content: string;
 }>();
-export const SelectNote = TypedAction.define('SELECT_NOTE')<{
+export const NoteSelected = TypedAction.define('NOTE_SELECTED')<{
   noteId: NoteId;
 }>();

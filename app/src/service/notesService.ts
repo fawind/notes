@@ -1,4 +1,4 @@
-import { RestApplicationClient, HttpClient } from '../../../service/build/typescript/service';
+import { RestApplicationClient, HttpClient } from '@src/_generated/service';
 import { INote, NoteId } from '@src/model';
 
 type RequestConfig = { method: string; url: string; queryParams?: any; data?: any; };
@@ -11,23 +11,28 @@ class HttpClientImpl implements HttpClient {
     const config = {
       method: requestConfig.method,
       headers: this.headers,
-      body: requestConfig.data,
+      body: JSON.stringify(requestConfig.data),
     };
-    return fetch(requestConfig.url, config);
+    return fetch(`api/${requestConfig.url}`, config)
+      .then((response: Response) => {
+        if (!response.ok) {
+          throw new Error(response.statusText);
+        }
+        if (response.status === 204) {
+          return null;
+        }
+        return response.json();
+      });
   }
 }
 
-export class NotesService {
+class NotesService {
 
   private notesServiceClient: RestApplicationClient;
 
   constructor(private apiToken: string) {
-    this.updateApiToken(apiToken);
-  }
-
-  updateApiToken(apiToken: string) {
-      const httpClient = new HttpClientImpl(this.getHeaders());
-      this.notesServiceClient = new RestApplicationClient(httpClient);
+    const httpClient = new HttpClientImpl(this.getHeaders());
+    this.notesServiceClient = new RestApplicationClient(httpClient);
   }
 
   createNote(): Promise<NoteId> {
@@ -39,9 +44,9 @@ export class NotesService {
     return this.notesServiceClient.deleteNote(noteId);
   }
 
-  getNotes(noteId: NoteId): Promise<INote[]> {
+  getNotes(): Promise<INote[]> {
     return this.notesServiceClient.getNotes()
-      .then(notes => notes as INote[]);
+      .then((notes) => notes as INote[]);
   }
 
   updateNote(noteId: NoteId, content: string): Promise<void> {
@@ -51,6 +56,33 @@ export class NotesService {
   private getHeaders(): Headers {
     const headers = new Headers();
     headers.append('Authorization', `Bearer ${this.apiToken}`);
+    headers.append('Content-Type', 'Application/json');
     return headers;
+  }
+}
+
+export class NotesServiceProvider {
+
+  private static notesService: NotesService | null = null;
+  private static authToken: string | null = null;
+
+  static get(): NotesService {
+    if (!NotesServiceProvider.notesService) {
+      if (!NotesServiceProvider.authToken) {
+        throw new Error('Auth token not set');
+      }
+      NotesServiceProvider.notesService = new NotesService(NotesServiceProvider.authToken);
+    }
+    return NotesServiceProvider.notesService;
+  }
+
+  static setAuthToken(authToken: string) {
+    NotesServiceProvider.authToken = authToken;
+    NotesServiceProvider.notesService = new NotesService(authToken);
+  }
+
+  static clearAuthToken() {
+    NotesServiceProvider.authToken = null;
+    NotesServiceProvider.notesService = null;
   }
 }

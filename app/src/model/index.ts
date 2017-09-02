@@ -5,5 +5,4 @@ export interface INote {
   content: string,
   modified: Date,
   created: Date,
-  selected?: boolean,
 }

@@ -2,17 +2,17 @@ import { createStore, loggingMiddleware, StoreEnhancer } from 'redoodle';
 import { applyMiddleware, compose, Store } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import rootReducer, { IRootState } from './reducers';
+import { RootState, RootReducer } from './reducers';
 
-export const initialState: IRootState = {
+export const initialState: RootState = {
   notes: [],
   selectedNote: { id: 'null' },
-  account: { loggedIn: false, idToken: null },
+  account: { loggedIn: true, idToken: null },
 };
 
-export function configureStore(): Store<IRootState> {
+export function configureStore(): Store<RootState> {
   return createStore(
-    rootReducer,
+    RootReducer,
     initialState,
     compose(
       applyMiddleware(

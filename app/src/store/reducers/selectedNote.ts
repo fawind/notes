@@ -9,7 +9,7 @@ export type State = {
 
 function createReducer() {
   return TypedReducer.builder<State>()
-    .withHandler(Actions.SelectNote.TYPE, (state, payload) => {
+    .withHandler(Actions.NoteSelected.TYPE, (state, payload) => {
       return { id: payload.noteId };
     })
     .build();
