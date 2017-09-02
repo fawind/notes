@@ -1,0 +1,44 @@
+import * as React from 'react';
+import { NoteId } from '@src/model';
+
+const SPLIT_TOKEN = '\n';
+const PLACEHOLDER_TITLE = 'New Note';
+const PLACEHOLDER_BODY = 'Write something';
+
+type Props = {
+  id: NoteId,
+  content: string;
+  modified: Date,
+  selected: boolean,
+  onSelect: (noteId: NoteId) => void;
+};
+
+const getTitle = (content: string): string => {
+  if (content.length === 0) {
+    return PLACEHOLDER_TITLE;
+  }
+  return content.split(SPLIT_TOKEN)[0].replace('#', '');
+};
+
+const getBody = (content: string): string => {
+  const parts = content.split(SPLIT_TOKEN);
+  if (parts.length === 1) {
+    return PLACEHOLDER_BODY;
+  }
+  return parts.slice(1).join(' ').substring(0, 100);
+};
+
+export const SideBarItem: React.SFC<Props> = (props: Props) => {
+
+  const handleClick = () => props.onSelect(props.id);
+
+  return (
+    <div
+      className={`item ${props.selected ? 'selected' : ''}`}
+      onClick={handleClick}
+    >
+      <div className={'title'}>{getTitle(props.content)}</div>
+      <div className={'body'}>{getBody(props.content)}</div>
+    </div>
+  );
+};

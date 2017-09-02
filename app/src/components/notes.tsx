@@ -13,7 +13,6 @@ type Props = {
 };
 
 export const Notes: React.SFC<Props> = (props: Props) => {
-  console.log(props);
   return (
     <div>
       <div>{JSON.stringify(props.notes, null, 2)}</div>

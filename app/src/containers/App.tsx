@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import * as SplitPane from 'react-split-pane';
 
 import { INote, NoteId } from '@src/model';
 import { Notes } from '@src/components/notes';
 import { LandingPage } from '@src/components/LandingPage';
 import { RootState } from '@src/store/reducers';
 import * as NoteActions from '@src/store/actions/notesAsync';
+import { SideBar } from '@src/components/SideBar';
 
 type Props = {
   notes: INote[],
@@ -25,15 +27,18 @@ const renderLogin = () => {
 };
 
 const renderApp = (props: Props) => {
+  const selectNote = (id: string) => console.log('Selected:', id);
   return (
-    <div>
+    <SplitPane split={'vertical'} minSize={100} defaultSize={200}>
+      <SideBar notes={props.notes} selectNote={selectNote}/>
       <Notes notes={props.notes} actions={props.actions}/>
-    </div>
+    </SplitPane>
   );
 };
 
 const App: React.SFC<Props> = (props: Props) => {
   if (props.loggedIn) {
+    console.log(props.actions);
     return renderApp(props);
   }
   return renderLogin();

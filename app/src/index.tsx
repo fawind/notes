@@ -3,9 +3,10 @@ import * as ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import { AppProvider } from './appProvider';
+import './main.css';
 
 const renderRoot = (app: JSX.Element) => {
-  ReactDOM.render(app, document.getElementById('root'));
+  ReactDOM.render(app, document.getElementById('rootApp'));
 };
 
 const renderDev = (Component: React.StatelessComponent<any>) => {

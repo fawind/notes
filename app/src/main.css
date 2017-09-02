@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    background-color: #fbfbfb;
+    color: #444;
+}
+
+.Resizer.vertical {
+    min-width: 1px;
+    background-color: #ddd;
+    cursor: col-resize;
+}
