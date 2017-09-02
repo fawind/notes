@@ -1,0 +1,38 @@
+.react-codemirror2, .CodeMirror {
+    position: relative;
+    height: 100%;
+}
+
+.CodeMirror {
+    font-family: 'Nunito', sans-serif;
+    color: #444;
+}
+
+.CodeMirror pre {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.CodeMirror .cm-mod {
+    color: red;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-1 {
+    font-size: 200%;
+    line-height: 200%;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-2 {
+    font-size: 160%;
+    line-height: 160%;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-3 {
+    font-size: 125%;
+    line-height: 125%;
+}
+
+.CodeMirror .CodeMirror-code .cm-header-4 {
+    font-size: 110%;
+    line-height: 110%;
+}

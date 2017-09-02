@@ -13,14 +13,14 @@ type Props = {
   onSelect: (noteId: NoteId) => void;
 };
 
-const getTitle = (content: string): string => {
+const getNoteTitle = (content: string): string => {
   if (content.length === 0) {
     return PLACEHOLDER_TITLE;
   }
   return content.split(SPLIT_TOKEN)[0].replace('#', '');
 };
 
-const getBody = (content: string): string => {
+const getNoteBody = (content: string): string => {
   const parts = content.split(SPLIT_TOKEN);
   if (parts.length === 1) {
     return PLACEHOLDER_BODY;
@@ -37,8 +37,8 @@ export const SideBarItem: React.SFC<Props> = (props: Props) => {
       className={`item ${props.selected ? 'selected' : ''}`}
       onClick={handleClick}
     >
-      <div className={'title'}>{getTitle(props.content)}</div>
-      <div className={'body'}>{getBody(props.content)}</div>
+      <div className={'title'}>{getNoteTitle(props.content)}</div>
+      <div className={'body'}>{getNoteBody(props.content)}</div>
     </div>
   );
 };

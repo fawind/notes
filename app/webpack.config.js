@@ -53,7 +53,7 @@ module.exports = (env = {}) => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(tsx?|jsx?)$/,
           include: PATHS.src,
           use: [
             { loader: 'react-hot-loader/webpack' },

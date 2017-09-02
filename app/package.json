@@ -18,6 +18,7 @@
     "@types/react-hot-loader": "^3.0.3",
     "@types/react-redux": "^5.0.5",
     "@types/react-split-pane": "^0.1.9",
+    "@types/reselect": "^2.2.0",
     "@types/webpack": "^3.0.9",
     "@types/webpack-dev-server": "^2.4.1",
     "@types/webpack-env": "^1.13.0",
@@ -38,6 +39,7 @@
   },
   "dependencies": {
     "react": "^15.6.1",
+    "react-codemirror2": "^1.0.0",
     "react-dom": "^15.6.1",
     "react-google-login": "^2.9.3",
     "react-redux": "^5.0.6",
@@ -46,6 +48,7 @@
     "redoodle": "^2.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "tslib": "^1.7.1"
   }
 }

@@ -46,7 +46,12 @@ class NotesService {
 
   getNotes(): Promise<INote[]> {
     return this.notesServiceClient.getNotes()
-      .then((notes) => notes as INote[]);
+      .then((notes) => notes.map(note => ({
+        id: note.id,
+        content: note.content,
+        modified: new Date(note.modified),
+        created: new Date(note.created),
+      })));
   }
 
   updateNote(noteId: NoteId, content: string): Promise<void> {
