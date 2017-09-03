@@ -24,14 +24,26 @@ const NoteApp: React.SFC<Props> = (props: Props) => {
   if (!props.selectedNote) {
     return (
       <SplitPane split={'vertical'} minSize={100} defaultSize={200}>
-        <SideBar notes={props.notes} selectNote={props.selectNote} selectedNoteId={null} />
+        <SideBar
+          notes={props.notes}
+          selectNote={props.selectNote}
+          selectedNoteId={null}
+          addNote={props.addNote}
+          deleteNote={props.deleteNote}
+        />
         <div />
       </SplitPane>
     );
   }
   return (
     <SplitPane split={'vertical'} minSize={100} defaultSize={200}>
-      <SideBar notes={props.notes} selectNote={props.selectNote} selectedNoteId={props.selectedNote.id} />
+      <SideBar
+        notes={props.notes}
+        selectNote={props.selectNote}
+        selectedNoteId={props.selectedNote.id}
+        addNote={props.addNote}
+        deleteNote={props.deleteNote}
+      />
       <NoteEditor note={props.selectedNote} saveNote={props.saveNote} />
     </SplitPane>
   );

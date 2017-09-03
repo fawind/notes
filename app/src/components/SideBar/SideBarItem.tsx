@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { X } from 'react-feather';
+
 import { NoteId } from '@src/model';
 import { getTimeSince } from '@src/utils';
 
@@ -8,10 +10,11 @@ const PLACEHOLDER_BODY = 'Write something';
 
 type Props = {
   id: NoteId,
-  content: string;
+  content: string,
   modified: Date,
   selected: boolean,
-  onSelect: (noteId: NoteId) => void;
+  onSelect: (noteId: NoteId) => void,
+  onDelete: (noteId: NoteId) => Promise<void>,
 };
 
 const getNoteTitle = (content: string): string => {
@@ -31,14 +34,20 @@ const getNoteBody = (content: string): string => {
 
 export const SideBarItem: React.SFC<Props> = (props: Props) => {
 
-  const handleClick = () => props.onSelect(props.id);
+  const handleSelect = () => props.onSelect(props.id);
+  const handleDelete = () => props.onDelete(props.id);
 
   return (
     <div
       className={`item ${props.selected ? 'selected' : ''}`}
-      onClick={handleClick}
+      onClick={handleSelect}
     >
-      <div className={'title'}>{getNoteTitle(props.content)}</div>
+      <div className={'title'}>
+        {getNoteTitle(props.content)}
+        {props.selected && <a className={'delete'} onClick={handleDelete} >
+          <X />
+        </a>}
+      </div>
       <div className={'date'}>{getTimeSince(props.modified)}</div>
       <div className={'body'}>{getNoteBody(props.content)}</div>
     </div>

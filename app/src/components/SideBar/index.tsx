@@ -9,6 +9,8 @@ type Props = {
   notes: INote[],
   selectedNoteId: NoteId | null,
   selectNote: (noteId: NoteId) => void,
+  addNote: () => Promise<void>,
+  deleteNote: (noteId: NoteId) => Promise<void>,
 };
 
 const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
@@ -18,7 +20,7 @@ const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
 export const SideBar: React.SFC<Props> = (props: Props) => {
   return (
     <div className={'sidebar'}>
-      <ActionBar />
+      <ActionBar onCreate={props.addNote} />
       {props.notes.map(note => (
         <SideBarItem
           key={note.id}
@@ -27,6 +29,7 @@ export const SideBar: React.SFC<Props> = (props: Props) => {
           modified={note.modified}
           selected={isSelected(note.id, props.selectedNoteId)}
           onSelect={props.selectNote}
+          onDelete={props.deleteNote}
         />
       ))}
     </div>

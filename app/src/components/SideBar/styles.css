@@ -20,6 +20,17 @@
     font-size: 1.1em;
 }
 
+.title .delete {
+    float: right;
+    color: #A3Abb3;
+    cursor: pointer;
+    -webkit-transition:color 0.2s ease-in;
+}
+
+.title .delete:hover {
+    color: red;
+}
+
 .sidebar .item .date {
     color: #A3ABB3;
 }
@@ -39,9 +50,6 @@
 
 .sidebar .actionBar .icon {
     display: table-cell;
-    position: relative;
-    width: 24px;
-    top: 6px;
     color: #A3ABB3;
     cursor: pointer;
     -webkit-transition:color 0.2s ease-in;

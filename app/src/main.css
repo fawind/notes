@@ -13,3 +13,9 @@ html, body {
     background-color: #ddd;
     cursor: col-resize;
 }
+
+.icon {
+    position: relative;
+    width: 24px;
+    top: 6px;
+}

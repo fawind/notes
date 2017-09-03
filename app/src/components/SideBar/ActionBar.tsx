@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Edit, Trash } from 'react-feather';
 
 type Props = {
+  onCreate: () => Promise<void>,
 };
 
 export const handleFocus = (event: any) => {
@@ -9,9 +10,12 @@ export const handleFocus = (event: any) => {
 };
 
 export const ActionBar: React.SFC<Props> = (props: Props) => {
+
+  const handleCreate = () => props.onCreate();
+
   return (
     <div className={'actionBar'}>
-      <a className={'icon'}>
+      <a className={'icon'} onClick={handleCreate}>
         <Edit />
       </a>
       <input
