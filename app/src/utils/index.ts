@@ -5,7 +5,7 @@ export const sortNotes = (notes: INote[]): INote[] => {
     return notes;
   }
   return notes.sort((noteA: INote, noteB: INote) => {
-    return noteA.modified.getTime() - noteB.modified.getTime();
+    return noteB.modified.getTime() - noteA.modified.getTime();
   });
 };
 

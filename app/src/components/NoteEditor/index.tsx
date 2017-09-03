@@ -6,12 +6,13 @@ import 'codemirror/mode/gfm/gfm';
 import 'codemirror/keymap/vim';
 import 'codemirror/lib/codemirror.css';
 
-import { INote } from '@src/model';
+import { INote, NoteId } from '@src/model';
 import { markdownModifierOverlay } from '@src/utils';
 import './styles.css';
 
 type Props = {
   note: INote,
+  saveNote: (noteId: NoteId, content: string) => Promise<void>,
 };
 
 export const NoteEditor: React.SFC<Props> = (props: Props) => {
@@ -21,10 +22,17 @@ export const NoteEditor: React.SFC<Props> = (props: Props) => {
     next();
   };
 
+  const saveEditor = (codeMirror: { getValue: () => string }) => {
+    props.saveNote(props.note.id, codeMirror.getValue());
+  };
+
   const editorOptions = {
     theme: 'paper',
     mode: { name: 'gfm', gitHubSpice: false },
-    extraKeys: { Enter: 'newlineAndIndentContinueMarkdownList' },
+    extraKeys: {
+      'Enter': 'newlineAndIndentContinueMarkdownList',
+      'Ctrl-S': saveEditor,
+    },
     lineWrapping: true,
   };
 
