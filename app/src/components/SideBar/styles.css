@@ -18,7 +18,10 @@
 .sidebar .item .title {
     font-weight: bold;
     font-size: 1.1em;
-    margin-bottom: 10px;
+}
+
+.sidebar .item .date {
+    color: #A3ABB3;
 }
 
 .sidebar .item .body {

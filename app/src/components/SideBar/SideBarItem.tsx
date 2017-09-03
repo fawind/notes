@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { NoteId } from '@src/model';
+import { getTimeSince } from '@src/utils';
 
 const SPLIT_TOKEN = '\n';
 const PLACEHOLDER_TITLE = 'New Note';
@@ -38,6 +39,7 @@ export const SideBarItem: React.SFC<Props> = (props: Props) => {
       onClick={handleClick}
     >
       <div className={'title'}>{getNoteTitle(props.content)}</div>
+      <div className={'date'}>{getTimeSince(props.modified)}</div>
       <div className={'body'}>{getNoteBody(props.content)}</div>
     </div>
   );
