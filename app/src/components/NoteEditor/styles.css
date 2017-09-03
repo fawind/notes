@@ -6,6 +6,7 @@
 .CodeMirror {
     font-family: 'Nunito', sans-serif;
     color: #444;
+    background-color: #fbfbfb;
 }
 
 .CodeMirror pre {

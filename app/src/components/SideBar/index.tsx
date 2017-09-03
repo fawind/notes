@@ -6,7 +6,12 @@ import './styles.css';
 
 type Props = {
   notes: INote[],
+  selectedNoteId: NoteId | null,
   selectNote: (noteId: NoteId) => void,
+};
+
+const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
+  return noteId === selectedId;
 };
 
 export const SideBar: React.SFC<Props> = (props: Props) => {
@@ -18,7 +23,7 @@ export const SideBar: React.SFC<Props> = (props: Props) => {
           id={note.id}
           content={note.content}
           modified={note.modified}
-          selected={false}
+          selected={isSelected(note.id, props.selectedNoteId)}
           onSelect={props.selectNote}
         />
       ))}

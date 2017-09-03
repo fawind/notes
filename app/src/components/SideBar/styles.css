@@ -3,6 +3,7 @@
     border-bottom: 1px solid #ddd;
     overflow: hidden;
     cursor: pointer;
+    border-left: 6px solid transparent;
 }
 
 .sidebar .item:hover {
@@ -11,6 +12,7 @@
 
 .sidebar .item.selected {
     border-left: 6px solid red;
+    background-color: white;
 }
 
 .sidebar .item .title {

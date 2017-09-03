@@ -17,7 +17,7 @@ const getNoteTitle = (content: string): string => {
   if (content.length === 0) {
     return PLACEHOLDER_TITLE;
   }
-  return content.split(SPLIT_TOKEN)[0].replace('#', '');
+  return content.split(SPLIT_TOKEN)[0].replace('#', '').trim();
 };
 
 const getNoteBody = (content: string): string => {
@@ -25,7 +25,7 @@ const getNoteBody = (content: string): string => {
   if (parts.length === 1) {
     return PLACEHOLDER_BODY;
   }
-  return parts.slice(1).join(' ').substring(0, 100);
+  return parts.slice(1).join(' ').substring(0, 100).trim();
 };
 
 export const SideBarItem: React.SFC<Props> = (props: Props) => {
