@@ -3,7 +3,5 @@ interface System {
 }
 declare let System: System;
 
-declare module 'react-codemirror2' {
-    const exports: () => any;
-    export = exports;
-}
+declare module 'react-codemirror2';
+declare module 'react-feather';

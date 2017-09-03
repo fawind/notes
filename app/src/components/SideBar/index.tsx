@@ -3,6 +3,7 @@ import { INote, NoteId } from '@src/model';
 import { SideBarItem } from '@src/components/SideBar/SideBarItem';
 
 import './styles.css';
+import { ActionBar } from '@src/components/SideBar/ActionBar';
 
 type Props = {
   notes: INote[],
@@ -17,6 +18,7 @@ const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
 export const SideBar: React.SFC<Props> = (props: Props) => {
   return (
     <div className={'sidebar'}>
+      <ActionBar />
       {props.notes.map(note => (
         <SideBarItem
           key={note.id}

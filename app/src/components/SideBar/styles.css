@@ -29,3 +29,40 @@
     height: 2em;
     line-height: 1.5em;
 }
+
+.sidebar .actionBar {
+    border-bottom: 1px solid #ddd;
+    display: table;
+    border-spacing: 10px;
+    width: 100%;
+}
+
+.sidebar .actionBar .icon {
+    display: table-cell;
+    position: relative;
+    width: 24px;
+    top: 6px;
+    color: #A3ABB3;
+    cursor: pointer;
+    -webkit-transition:color 0.2s ease-in;
+}
+
+.sidebar .actionBar .icon:hover {
+    color: inherit;
+}
+
+.sidebar .actionBar input {
+    display: table-cell;
+    font-family: inherit;
+    outline: none;
+    font-size: 100%;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    color: #A3ABB3;
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.sidebar .actionBar input::-webkit-search-decoration, input::-webkit-search-cancel-button {
+	display: none;
+}
