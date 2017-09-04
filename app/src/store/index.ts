@@ -8,6 +8,7 @@ export const initialState: RootState = {
   notes: [],
   selectedNote: { id: 'null' },
   account: { loggedIn: true, idToken: null },
+  search: { term: '' },
 };
 
 export function configureStore(): Store<RootState> {

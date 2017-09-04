@@ -8,8 +8,9 @@ import { SideBar } from '@src/components/SideBar';
 import { NoteEditor } from '@src/components/NoteEditor';
 import { RootState } from '@src/store/reducers';
 import * as NoteActions from '@src/store/actions/notesAsync';
+import * as SearchActions from '@src/store/actions/search';
 import { NoteSelected } from '@src/store/actions/notes';
-import { getSelectedNote } from '@src/store/selectors';
+import { getFilteredNotes, getSelectedNote } from '@src/store/selectors';
 
 type Props = {
   notes: INote[],
@@ -18,6 +19,7 @@ type Props = {
   deleteNote: (noteId: NoteId) => Promise<void>,
   saveNote: (noteId: NoteId, content: string) => Promise<void>,
   selectNote: (noteId: NoteId) => any,
+  searchChanged: (term: string) => any;
 };
 
 const NoteApp: React.SFC<Props> = (props: Props) => {
@@ -30,6 +32,7 @@ const NoteApp: React.SFC<Props> = (props: Props) => {
           selectedNoteId={null}
           addNote={props.addNote}
           deleteNote={props.deleteNote}
+          searchChanged={props.searchChanged}
         />
         <div />
       </SplitPane>
@@ -43,6 +46,7 @@ const NoteApp: React.SFC<Props> = (props: Props) => {
         selectedNoteId={props.selectedNote.id}
         addNote={props.addNote}
         deleteNote={props.deleteNote}
+        searchChanged={props.searchChanged}
       />
       <NoteEditor note={props.selectedNote} saveNote={props.saveNote} />
     </SplitPane>
@@ -50,7 +54,7 @@ const NoteApp: React.SFC<Props> = (props: Props) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  notes: state.notes,
+  notes: getFilteredNotes(state),
   selectedNote: getSelectedNote(state),
 });
 
@@ -60,6 +64,7 @@ const mapDispatchToProps = (dispatch: Dispatch<RootState>) => {
     deleteNote: (noteId: NoteId) => dispatch(NoteActions.deleteNote(noteId)),
     saveNote: (noteId: NoteId, content: string) => dispatch(NoteActions.saveNote(noteId, content)),
     selectNote: (noteId: NoteId) => dispatch(NoteSelected.create({ noteId })),
+    searchChanged: (term: string) => dispatch(SearchActions.SearchChanged.create({ term })),
   };
 };
 

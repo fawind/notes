@@ -11,6 +11,7 @@ type Props = {
   selectNote: (noteId: NoteId) => void,
   addNote: () => Promise<void>,
   deleteNote: (noteId: NoteId) => Promise<void>,
+  searchChanged: (term: string) => void;
 };
 
 const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
@@ -20,7 +21,7 @@ const isSelected = (noteId: NoteId, selectedId: NoteId | null) => {
 export const SideBar: React.SFC<Props> = (props: Props) => {
   return (
     <div className={'sidebar'}>
-      <ActionBar onCreate={props.addNote} />
+      <ActionBar onCreate={props.addNote} onSearch={props.searchChanged} />
       {props.notes.map(note => (
         <SideBarItem
           key={note.id}
