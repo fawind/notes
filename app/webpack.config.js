@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const PATHS = {
   root: path.resolve(__dirname),
@@ -80,6 +81,10 @@ module.exports = (env = {}) => {
           ],
         },
         {
+          test: /\.(png|jpg|svg)$/,
+          use: 'url-loader?limit=10000'
+        },
+        {
           test: /\.(woff|woff2|ttf|eot)$/,
           use: {
             loader: 'file-loader',
@@ -127,6 +132,9 @@ module.exports = (env = {}) => {
           comments: false,
           sourceMap: isSourceMap,
         }),
+        new CopyWebpackPlugin([
+          { from: './favicon.png', to: PATHS.dist },
+        ]),
       ] : []),
     ]
   };

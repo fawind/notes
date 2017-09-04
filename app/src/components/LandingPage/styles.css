@@ -1,0 +1,18 @@
+.landing {
+    margin-top: 10%;
+}
+
+.landing .CodeMirror-line {
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: normal;
+}
+
+.landing .singInButton {
+    margin: 15px;
+}
+
+.landing a, .landing a:visited {
+    color: red;
+}

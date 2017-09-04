@@ -9,7 +9,10 @@ const getSearchTerm = (state: RootState) => state.search.term;
 const hasUpperCase = (term: string) => /[A-Z]/.test(term);
 
 export const getSelectedNote = createSelector(
-  [getNotes, getSelectedNoteId], (notes: INote[], selectedNote: NoteId) => {
+  [getNotes, getSelectedNoteId], (notes: INote[], selectedNote: NoteId): INote | null => {
+    if (notes.length === 0) {
+      return null;
+    }
     const noteIndex = notes.findIndex((note: INote) => note.id === selectedNote);
     if (noteIndex === -1) {
       return notes[0];
