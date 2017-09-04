@@ -1,4 +1,4 @@
-import { Dispatch } from 'redoodle';
+import { CompoundAction, Dispatch } from 'redoodle';
 
 import * as Actions from './notes';
 import { NotesServiceProvider } from '@src/service/notesService';
@@ -11,7 +11,10 @@ export const loadNotes = () => async (dispatch: Dispatch) => {
 
 export const addNote = () => async (dispatch: Dispatch) => {
   const noteId = await NotesServiceProvider.get().createNote();
-  dispatch(Actions.NoteAdded.create({ noteId }));
+  dispatch(CompoundAction.create([
+    Actions.NoteAdded.create({ noteId }),
+    Actions.NoteSelected.create({ noteId }),
+  ]));
 };
 
 export const deleteNote = (noteId: string) => async (dispatch: Dispatch) => {

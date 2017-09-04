@@ -1,4 +1,4 @@
-import { createStore, loggingMiddleware, StoreEnhancer } from 'redoodle';
+import { createStore, loggingMiddleware, reduceCompoundActions, StoreEnhancer } from 'redoodle';
 import { applyMiddleware, compose, Store } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
@@ -13,7 +13,7 @@ export const initialState: RootState = {
 
 export function configureStore(): Store<RootState> {
   return createStore(
-    RootReducer,
+    reduceCompoundActions(RootReducer),
     initialState,
     compose(
       applyMiddleware(
