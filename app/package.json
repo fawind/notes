@@ -8,13 +8,14 @@
     "lint": "./node_modules/.bin/tslint --project tsconfig.json",
     "test": "./node_modules/.bin/jest --config test.json -u",
     "generate": "gradle -p ../service generateTypescript && cp ../service/build/typescript/* ./src/_generated",
-    "install": "generate"
+    "install": "npm run generate"
   },
   "devDependencies": {
     "@types/gapi.auth2": "0.0.43",
     "@types/node": "^8.0.24",
     "@types/react": "^16.0.2",
     "@types/react-dom": "^15.5.3",
+    "@types/react-flip-move": "^2.9.1",
     "@types/react-hot-loader": "^3.0.3",
     "@types/react-redux": "^5.0.5",
     "@types/react-split-pane": "^0.1.9",
@@ -42,6 +43,7 @@
     "react-codemirror2": "^1.0.0",
     "react-dom": "^15.6.1",
     "react-feather": "^1.0.7",
+    "react-flip-move": "^2.4.2",
     "react-google-login": "^2.9.3",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.1.2",

@@ -32,24 +32,37 @@ const getNoteBody = (content: string): string => {
   return parts.slice(1).join(' ').substring(0, 100).trim();
 };
 
-export const SideBarItem: React.SFC<Props> = (props: Props) => {
+export class SideBarItem extends React.PureComponent<Props> {
 
-  const handleSelect = () => props.onSelect(props.id);
-  const handleDelete = () => props.onDelete(props.id);
+  constructor(props: Props) {
+    super(props);
+    this.handleSelect = this.handleSelect.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
 
-  return (
-    <div
-      className={`item ${props.selected ? 'selected' : ''}`}
-      onClick={handleSelect}
-    >
-      <div className={'title'}>
-        {getNoteTitle(props.content)}
-        {props.selected && <a className={'delete'} onClick={handleDelete} >
-          <X />
-        </a>}
+  handleSelect() {
+    this.props.onSelect(this.props.id);
+  }
+
+  handleDelete() {
+    this.props.onDelete(this.props.id);
+  }
+
+  render() {
+    return (
+      <div
+        className={`item ${this.props.selected ? 'selected' : ''}`}
+        onClick={this.handleSelect}
+      >
+        <div className={'title'}>
+          {getNoteTitle(this.props.content)}
+          {this.props.selected && <a className={'delete'} onClick={this.handleDelete} >
+            <X />
+          </a>}
+        </div>
+        <div className={'date'}>{getTimeSince(this.props.modified)}</div>
+        <div className={'body'}>{getNoteBody(this.props.content)}</div>
       </div>
-      <div className={'date'}>{getTimeSince(props.modified)}</div>
-      <div className={'body'}>{getNoteBody(props.content)}</div>
-    </div>
-  );
-};
+    );
+  }
+}

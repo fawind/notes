@@ -1,9 +1,11 @@
 import * as React from 'react';
+import * as FlipMove from 'react-flip-move';
+
 import { INote, NoteId } from '@src/model';
 import { SideBarItem } from '@src/components/SideBar/SideBarItem';
+import { ActionBar } from '@src/components/SideBar/ActionBar';
 
 import './styles.css';
-import { ActionBar } from '@src/components/SideBar/ActionBar';
 
 type Props = {
   notes: INote[],
@@ -22,17 +24,19 @@ export const SideBar: React.SFC<Props> = (props: Props) => {
   return (
     <div className={'sidebar'}>
       <ActionBar onCreate={props.addNote} onSearch={props.searchChanged} />
-      {props.notes.map(note => (
-        <SideBarItem
-          key={note.id}
-          id={note.id}
-          content={note.content}
-          modified={note.modified}
-          selected={isSelected(note.id, props.selectedNoteId)}
-          onSelect={props.selectNote}
-          onDelete={props.deleteNote}
-        />
-      ))}
+      <FlipMove>
+        {props.notes.map(note => (
+          <SideBarItem
+            key={note.id}
+            id={note.id}
+            content={note.content}
+            modified={note.modified}
+            selected={isSelected(note.id, props.selectedNoteId)}
+            onSelect={props.selectNote}
+            onDelete={props.deleteNote}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 };

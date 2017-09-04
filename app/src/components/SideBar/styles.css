@@ -4,6 +4,7 @@
     overflow: hidden;
     cursor: pointer;
     border-left: 6px solid transparent;
+    transition: border-color 0.2s ease-in;
 }
 
 .sidebar .item:hover {
