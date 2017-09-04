@@ -2,13 +2,15 @@
   "name": "notes-app",
   "version": "1.0.0",
   "scripts": {
+    "install": "npm run generate",
+    "generate": "gradle -p ../service generateTypescript && cp ../service/build/typescript/* ./src/_generated",
     "start": "./node_modules/.bin/webpack-dev-server",
     "clean": "rimraf dist",
-    "build": "npm run clean && ./node_modules/.bin/webpack --env.build --env.sourceMap",
     "lint": "./node_modules/.bin/tslint --project tsconfig.json",
     "test": "./node_modules/.bin/jest --config test.json -u",
-    "generate": "gradle -p ../service generateTypescript && cp ../service/build/typescript/* ./src/_generated",
-    "install": "npm run generate"
+    "build": "npm run clean && ./node_modules/.bin/webpack --env.build --env.sourceMap",
+    "copyDist": "(cd ../service/src/main/webapp && find ./* -not -path '*WEB-INF*' -delete) && cp ./dist/* ../service/src/main/webapp/",
+    "dist": "npm run build && npm run copyDist"
   },
   "devDependencies": {
     "@types/gapi.auth2": "0.0.43",

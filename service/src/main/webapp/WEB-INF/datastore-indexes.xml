@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="false">
+    <datastore-index kind="NOTE_V01" ancestor="false">
+        <property name="userId" direction="asc"/>
+        <property name="modified" direction="desc"/>
+    </datastore-index>
+</datastore-indexes>

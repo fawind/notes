@@ -104,10 +104,15 @@ module.exports = (env = {}) => {
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
       }),
+      new HtmlWebpackPlugin({
+        template: './index.html',
+      }),
+
       ...(isDev ? [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
       ] : []),
+
       ...(isBuild ? [
         new webpack.LoaderOptionsPlugin({
           minimize: true,
@@ -121,9 +126,6 @@ module.exports = (env = {}) => {
           },
           comments: false,
           sourceMap: isSourceMap,
-        }),
-        new HtmlWebpackPlugin({
-          template: './index.html',
         }),
       ] : []),
     ]
