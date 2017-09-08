@@ -1,0 +1,28 @@
+.loadingBar {
+  height: 4px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.loadingBar:before{
+  display: block;
+  position: relative;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 3px;
+  background-color: red;
+  animation: loading 4s linear infinite;
+}
+
+@keyframes loading {
+  from { left: -60%; width: 30%; }
+  50% { width: 30%; }
+  70% { width: 70%; }
+  80% { left: 50%; }
+  95% { left: 120%; }
+  to { left: 100%; }
+}
