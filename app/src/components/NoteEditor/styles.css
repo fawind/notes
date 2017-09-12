@@ -37,3 +37,28 @@
     font-size: 110%;
     line-height: 110%;
 }
+
+.CodeMirror .CodeMirror-code .cm-comment {
+    background: rgba(0, 0, 0, .05);
+    font-family: monospace;
+}
+
+.CodeMirror .CodeMirror-code .cm-link {
+    color: #7f8c8d;
+}
+
+.CodeMirror .CodeMirror-code .cm-url {
+    color: #aab2b3;
+}
+
+.CodeMirror .CodeMirror-code .cm-strikethrough {
+    text-decoration: line-through;
+}
+
+.CodeMirror .CodeMirror-code .cm-quote {
+    font-style: italic;
+}
+
+.CodeMirror .CodeMirror-placeholder {
+    opacity: .5;
+}

@@ -13,8 +13,9 @@ export const markdownModifierOverlay = () => {
   const MODIFIER_CLASS = 'mod';
   const HEADING_RE = /(#{1,6})(?:\s)/;
   const LIST_RE = /^\s*(-\s\[(x|\s)]|\*|-|\+|\d+\.)\s/;
+  const QUOTE_RE = /^>(?:\s)/;
 
-  const getClass = (optionalClass: string): string => {
+  const getClass = (optionalClass?: string): string => {
     if (!optionalClass) {
       return MODIFIER_CLASS;
     }
@@ -27,6 +28,8 @@ export const markdownModifierOverlay = () => {
         return getClass('header');
       } else if (stream.sol() && stream.match(LIST_RE)) {
         return getClass('list');
+      } else if (stream.sol() && stream.match(QUOTE_RE)) {
+        return getClass();
       }
       stream.next();
       return;
