@@ -15,4 +15,4 @@ The API definition can be found [here](https://github.com/fawind/notes/blob/mast
 
 1. Verify your Google Cloud Project is setup correctly: `gcloud config list`
 2. Deploy the service: `gradle appengineDeploy`
-3. Optional: Update the datastore indexes: `gcloud datastore create-indexes ./build/staged-app/WEB-INF/appengine-generated/index.yaml`
+3. Optional: Update the datastore indices: `gcloud datastore create-indexes ./build/staged-app/WEB-INF/appengine-generated/index.yaml`

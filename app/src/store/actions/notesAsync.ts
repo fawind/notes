@@ -7,6 +7,7 @@ import { NotesServiceProvider } from '@src/service/notesService';
 import { INote } from '@src/model';
 
 export const loadNotes = () => async (dispatch: Dispatch) => {
+  dispatch(StartLoading.create());
   try {
     const notes: INote[] = await NotesServiceProvider.get().getNotes();
     dispatch(CompoundAction.create([

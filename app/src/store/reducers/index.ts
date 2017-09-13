@@ -30,6 +30,6 @@ export const initialState: RootState = {
   selectedNote: { id: 'null' },
   account: { loggedIn: true, idToken: null },
   search: { term: '' },
-  loading: true,
+  loading: false,
   error: { visible: false, message: null },
 };

@@ -1,36 +1,36 @@
 .loginButton {
-  box-sizing: border-box;
-  position: relative;
-  margin: 0.2em;
-  padding: 0 10px 0 46px;
-  line-height: 40px;
-  white-space: nowrap;
-  border: none;
-  border-radius: 3px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #757575;
-  background: white;
-  cursor: pointer;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+    box-sizing: border-box;
+    position: relative;
+    margin: 0.2em;
+    padding: 0 10px 0 46px;
+    line-height: 40px;
+    white-space: nowrap;
+    border: none;
+    border-radius: 3px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #757575;
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
 }
 
 .loginButton:before {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 40px;
-  height: 100%;
-  background: url("/src/static/btn-google.png") no-repeat;
-  background-size: 100%;
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 100%;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QkEEzgfF0k7hgAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAFKklEQVR42u3aX2xTVRzA8e/t7vp3W1mH2wKBYWADNpnAkKFTMcYY1Pgn49+QhCkIQ0Q0mqC+qKgPGkMiEEKm8WUMCQ+gEkQJEQkKGgwDOvaHsjlEyP7AaCkt63pv7/VhER+2suF6WzrP7/Ge019//fT+OefcI+m6riNiyGESBAJMgAkwASbARAgwASbABJgAEyHABJgAE2ACTICJEGACLDEhJ7oArauD8O+/oTTVo7Z40H1etOt+MEmYMrMwubJIyc7FXFKKefb9SJlZCa1XStRLkN7DBwnt24Nyuo6hliBJEvKUIuwVyzCXPfL/AFPqjhOo3oza6hlWntSCqThWvUrq9FkjFExRCHy+mZ6vd8WueEnCvnQ59spVIEkjB0y/7ufaO+tQmhsNyW8pm0vGhk9Hxk1f93nxrX8F9Y8WY/5xixXbs4tGyCWpqvjeXI3S4DYMy/nhRlJn3jcyhhWBrRuHjJU6uRBzaRnylCJMmS7QdTSfF9XTRPj4MZTG+oRjGXqGKe6T+N6oGhyqqJi0qteQC6fd+mRtrCdQvQmlwZ0wLOPAdA3vqgrUtvO37GZf8gKO5S8P/QmnRQh+uQ1zSWlCsAwD07v307N9OcEfxoE6MIZ98TIcK9eKuSSA3l6LedpVMio9mEb19mu3PT0/KbGMOcPUa0R+GYceCfXhhVII7huPcs7Z9w+lZ+Cq/RbJ4RCrFQB61+6bWACSNULagjZsc9vBBLaFS5MWy5Bhhe47OuBx6wOdyHdbsJZXDCnPiTZteGeCBDMmmJIALHAmapu5uBistiHlWb+zZ9i1HHjbgWy6wy9Jei9Fv2Gml8T18vEFYz9iij2Yei16mzknrmDepAC7gyLYmwzjMNkZvS3cGVewDJuUBGCWsdEfCNdPxBXMlRZ7sJg/JaW0e9Cvnxyw7ZzvL8arIWyyddA8ZQWDl3bZr+PpiAzYlmKScNqTYBwmjSqD9u39jtf05FPdncfqc/t5cWr5oHk+WGAZtE/1oXBUsBynhBGL1jG/JKXs+WD698cGNZn1/tlsC05F06G2eS9B5cawvyeiwZHmSNT22RNTkmTyLTtRXfMAaIlkUOmby8/h3JvN/nCALe4dw/6a706pdPiizwZKJyULGKDkLOb70Dhe8j3MJa3/vHF3ywG2uGv/c/7WLo3qH8NR262pEjPykgjMkVPOV/Jz9OrR09c0fcNW9w50bm9w2XBR462dIUJK9M89UyKTaoyXcUvUdZcbqTr07qD9ikdP5vXplUzLKrhlvwuBdmqb93KoXkbvWAj6wCJpVonaNXbSrUkGBvDxiS/Y3XJgSH0LXZN4cMxMilz5uKxOwprCpUAnFwOdNF1t5Wh7HZred89KCeVj71yLpI7ql2flo2Yq5qQaNrYzFEzVVKp+eg/3lbOxL1x1Yutag9wz5eax6XkpfLLEGvMViriBAXh7/aw5vIEW35+G3IIt3Yuw+J4gb7SJLZU2HBYMjbhsFfCHA6w78hEN3ca8/Z4kz+Ozx1aQ4zR+f0XcNqMomsqm0zXs8uyPad6Hxszi/dK1ZJjT4jI/jft2p+OdbjadrsHjPT+sPJlWJysK57M4/8m4TugTsqFOR+fghWPsaT1I3eUGbqeEXMddPF/wFOUTH8eSYo536YnbgfhPdNy4wq8dpzjT7eGstw1vrx9/ONC3PGNxkmnNINuWxczsIubk3suE9LGJLDfxYMkWYhe1ABNgAkyACTARAkyACTABJsBECDABJsAEmAATYCIEmABLUPwNR2DvzxWZlBQAAAAASUVORK5CYII=) no-repeat;
+    background-size: 100%;
 }
 
 .loginButton:active {
-  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+    box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
 }
 
 .loginButton:hover {
-  opacity: 0.9;
+    opacity: 0.9;
 }

@@ -39,7 +39,7 @@ const NoteApp: React.SFC<Props> = (props: Props) => {
     );
   }
   return (
-    <SplitPane split={'vertical'} minSize={100} defaultSize={200}>
+    <SplitPane split={'vertical'} minSize={100} defaultSize={250}>
       <SideBar
         notes={props.notes}
         selectNote={props.selectNote}
