@@ -5,6 +5,7 @@ import { State as SelectedNoteState, Reducer as selectedNoteReducer } from './se
 import { State as AccountState, Reducer as AccountReducer } from './account';
 import { State as SearchState, Reducer as SearchReducer } from './search';
 import { State as LoadingState, Reducer as LoadingReducer } from './loading';
+import { State as ErrorState, Reducer as ErrorReducer } from './error';
 
 export type RootState = {
   readonly notes: NotesState,
@@ -12,6 +13,7 @@ export type RootState = {
   readonly account: AccountState,
   readonly search: SearchState,
   readonly loading: LoadingState,
+  readonly error: ErrorState,
 };
 
 export const RootReducer = combineReducers<RootState>({
@@ -20,4 +22,14 @@ export const RootReducer = combineReducers<RootState>({
   account: AccountReducer,
   search: SearchReducer,
   loading: LoadingReducer,
+  error: ErrorReducer,
 });
+
+export const initialState: RootState = {
+  notes: [],
+  selectedNote: { id: 'null' },
+  account: { loggedIn: true, idToken: null },
+  search: { term: '' },
+  loading: true,
+  error: { visible: false, message: null },
+};

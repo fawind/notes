@@ -2,15 +2,7 @@ import { createStore, loggingMiddleware, reduceCompoundActions, StoreEnhancer } 
 import { applyMiddleware, compose, Store } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
-import { RootState, RootReducer } from './reducers';
-
-export const initialState: RootState = {
-  notes: [],
-  selectedNote: { id: 'null' },
-  account: { loggedIn: true, idToken: null },
-  search: { term: '' },
-  loading: true,
-};
+import { RootState, RootReducer, initialState } from './reducers';
 
 export function configureStore(): Store<RootState> {
   return createStore(
