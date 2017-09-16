@@ -15,32 +15,68 @@ type Props = {
   saveNote: (noteId: NoteId, content: string) => Promise<void>,
 };
 
-export const NoteEditor: React.SFC<Props> = (props: Props) => {
+type CodeMirror = {
+  getValue: () => string,
+  addOverlay: (overlay: any) => void,
+  isClean: () => boolean;
+  markClean: () => void,
+};
 
-  const addOverlay = (editor: any, next: any) => {
-    editor.addOverlay(markdownModifierOverlay());
-    next();
-  };
+export class NoteEditor extends React.Component<Props> {
 
-  const saveEditor = (codeMirror: { getValue: () => string }) => {
-    props.saveNote(props.note.id, codeMirror.getValue());
-  };
+  private saveTimeout = 5000;
 
-  const editorOptions = {
+  private editorOptions = {
     theme: 'paper',
     mode: { name: 'gfm', gitHubSpice: false },
     extraKeys: {
       'Enter': 'newlineAndIndentContinueMarkdownList',
-      'Ctrl-S': saveEditor,
+      'Ctrl-S': this.saveEditor.bind(this),
     },
     lineWrapping: true,
   };
 
-  return (
-    <CodeMirror
-      options={editorOptions}
-      value={props.note.content}
-      editorDidMount={addOverlay}
-    />
-  );
-};
+  private timeoutId: number;
+
+  constructor(props: Props) {
+    super(props);
+    this.initializeEditor = this.initializeEditor.bind(this);
+    this.saveEditor = this.saveEditor.bind(this);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
+  }
+
+  initializeEditor(editor: CodeMirror, next: () => void) {
+    editor.addOverlay(markdownModifierOverlay());
+    next();
+    this.autosaveEditor(editor);
+  }
+
+  autosaveEditor(editor: CodeMirror) {
+    if (!editor.isClean()) {
+      this.saveEditor(editor)
+        .then(() => {
+          this.timeoutId = setTimeout(this.autosaveEditor.bind(this, editor), this.saveTimeout);
+        });
+    } else {
+      this.timeoutId = setTimeout(this.autosaveEditor.bind(this, editor), this.saveTimeout);
+    }
+  }
+
+  saveEditor(editor: CodeMirror) {
+    return this.props.saveNote(this.props.note.id, editor.getValue())
+      .then(() => editor.markClean());
+  }
+
+  render() {
+    return (
+      <CodeMirror
+        options={this.editorOptions}
+        value={this.props.note.content}
+        editorDidMount={this.initializeEditor}
+      />
+    );
+  }
+}
