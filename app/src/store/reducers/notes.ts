@@ -30,12 +30,12 @@ function createReducer() {
   });
 
   builder.withHandler(Actions.NoteSaved.TYPE, (state, payload) => {
-    return state.map(note => {
+    return sortNotes(state.map(note => {
       if (note.id !== payload.noteId) {
         return note;
       }
       return setWith(note, { content: payload.content, modified: new Date() });
-    });
+    }));
   });
 
   return builder.build();

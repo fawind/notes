@@ -58,6 +58,7 @@ export class NoteEditor extends React.Component<Props> {
     if (!editor.isClean()) {
       this.saveEditor(editor)
         .then(() => {
+          editor.markClean();
           this.timeoutId = setTimeout(this.autosaveEditor.bind(this, editor), this.saveTimeout);
         });
     } else {
@@ -65,9 +66,11 @@ export class NoteEditor extends React.Component<Props> {
     }
   }
 
-  saveEditor(editor: CodeMirror) {
-    return this.props.saveNote(this.props.note.id, editor.getValue())
-      .then(() => editor.markClean());
+  saveEditor(editor: CodeMirror): Promise<void> {
+    if (this.props.note.content === editor.getValue()) {
+      return new Promise(resolve => { resolve(); });
+    }
+    return this.props.saveNote(this.props.note.id, editor.getValue());
   }
 
   render() {
