@@ -21,7 +21,6 @@
     "@types/react-hot-loader": "^3.0.3",
     "@types/react-redux": "^5.0.5",
     "@types/react-split-pane": "^0.1.9",
-    "@types/reselect": "^2.2.0",
     "@types/webpack": "^3.0.9",
     "@types/webpack-dev-server": "^2.4.1",
     "@types/webpack-env": "^1.13.0",
