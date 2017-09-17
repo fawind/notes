@@ -1,3 +1,13 @@
+.sidebar .itemList {
+    overflow-y: auto;
+    /* TODO: Hack - Fix scrollable sidebar */
+    height: calc(100% - 53px);
+}
+
+.sidebar .itemList::-webkit-scrollbar {
+    display: none;
+}
+
 .sidebar .item {
     padding: 10px 10px 20px 20px;
     border-bottom: 1px solid #ddd;
@@ -21,14 +31,14 @@
     font-size: 1.1em;
 }
 
-.title .delete {
+.sidebar .title .delete {
     float: right;
     color: #A3Abb3;
     cursor: pointer;
     -webkit-transition:color 0.2s ease-in;
 }
 
-.title .delete:hover {
+.sidebar .title .delete:hover {
     color: red;
 }
 

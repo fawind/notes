@@ -24,7 +24,7 @@ export const SideBar: React.SFC<Props> = (props: Props) => {
   return (
     <div className={'sidebar'}>
       <ActionBar onCreate={props.addNote} onSearch={props.searchChanged} />
-      <FlipMove>
+      <FlipMove className={'itemList'}>
         {props.notes.map(note => (
           <SideBarItem
             key={note.id}

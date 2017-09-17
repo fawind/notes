@@ -8,10 +8,14 @@ html, body {
     color: #444;
 }
 
-.Resizer.vertical {
+.SplitPane .Resizer.vertical {
     min-width: 1px;
     background-color: #ddd;
     cursor: col-resize;
+}
+
+.SplitPane .Pane1 {
+    display: flex;
 }
 
 .icon {
