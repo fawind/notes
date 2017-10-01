@@ -22,7 +22,7 @@ type CodeMirror = {
   markClean: () => void,
 };
 
-export class NoteEditor extends React.Component<Props> {
+export class NoteEditor extends React.PureComponent<Props> {
 
   private saveTimeout = 5000;
 
@@ -42,6 +42,10 @@ export class NoteEditor extends React.Component<Props> {
     super(props);
     this.initializeEditor = this.initializeEditor.bind(this);
     this.saveEditor = this.saveEditor.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps: Readonly<Props>): boolean {
+    return this.props.note.id !== nextProps.note.id;
   }
 
   componentWillUnmount() {
