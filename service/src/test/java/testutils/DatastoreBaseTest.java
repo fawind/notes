@@ -6,6 +6,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.Text;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 import com.google.common.collect.ImmutableList;
@@ -52,7 +53,7 @@ public abstract class DatastoreBaseTest {
     public Entity getNoteEntity(String userId, String content, Date created, Date modified) {
         Entity entity = new Entity(KIND);
         entity.setProperty(PROP_USER_ID, userId);
-        entity.setProperty(PROP_CONTENT, content);
+        entity.setProperty(PROP_CONTENT, new Text(content));
         entity.setProperty(PROP_CREATED, created);
         entity.setProperty(PROP_MODIFIER, modified);
         return entity;
@@ -65,7 +66,7 @@ public abstract class DatastoreBaseTest {
     public ImmutableList<Note> toNotes(ImmutableList<Key> keys, ImmutableList<Entity> entities) {
         return Streams.zip(keys.stream(), entities.stream(), (key, entity) -> new Note(
                     String.valueOf(key.getId()),
-                    (String) entity.getProperty(PROP_CONTENT),
+                    ((Text) entity.getProperty(PROP_CONTENT)).getValue(),
                     (Date) entity.getProperty(PROP_CREATED),
                     (Date) entity.getProperty(PROP_MODIFIER)))
                 .collect(toImmutableList());

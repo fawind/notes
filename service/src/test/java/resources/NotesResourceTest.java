@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.Text;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import models.Note;
@@ -89,7 +90,7 @@ public class NotesResourceTest extends DatastoreBaseTest {
         // THEN
         Entity newNote = getEntity(noteId);
         assertThat((String) newNote.getProperty(PROP_USER_ID)).isEqualTo(userId);
-        assertThat((String) newNote.getProperty(PROP_CONTENT)).isEqualTo("");
+        assertThat(((Text) newNote.getProperty(PROP_CONTENT)).getValue()).isEqualTo("");
         assertThat((Date) newNote.getProperty(PROP_CREATED)).isNotNull();
         assertThat((Date) newNote.getProperty(PROP_MODIFIER)).isNotNull();
     }
@@ -135,7 +136,7 @@ public class NotesResourceTest extends DatastoreBaseTest {
         // THEN
         Entity updatedEntity = getEntity(noteId);
         assertThat((String) updatedEntity.getProperty(PROP_USER_ID)).isEqualTo(userId);
-        assertThat((String) updatedEntity.getProperty(PROP_CONTENT)).isEqualTo(updatedNote.getContent());
+        assertThat(((Text) updatedEntity.getProperty(PROP_CONTENT)).getValue()).isEqualTo(updatedNote.getContent());
         assertThat(updatedEntity.getProperty(PROP_CREATED)).isEqualTo(oldEntity.getProperty(PROP_CREATED));
         assertThat((Date) updatedEntity.getProperty(PROP_MODIFIER)).isAfter((Date) oldEntity.getProperty(PROP_MODIFIER));
     }

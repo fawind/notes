@@ -7,6 +7,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Text;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Streams;
 import models.Note;
@@ -51,7 +52,7 @@ public class DatastoreNotesDao implements NotesDao {
     public String createNote(String userId) {
         Entity newEntity = new Entity(KIND);
         newEntity.setProperty(PROP_USER_ID, userId);
-        newEntity.setProperty(PROP_CONTENT, "");
+        newEntity.setProperty(PROP_CONTENT, new Text(""));
         newEntity.setProperty(PROP_CREATED, new Date());
         newEntity.setProperty(PROP_MODIFIER, new Date());
         Key key = datastoreService.put(newEntity);
@@ -69,7 +70,7 @@ public class DatastoreNotesDao implements NotesDao {
                         "User %s tried to update note %s of user %s", userId, noteId, ownerId));
                 throw new EntityNotFoundException(key);
             }
-            entity.setProperty(PROP_CONTENT, note.getContent());
+            entity.setProperty(PROP_CONTENT, new Text(note.getContent()));
             entity.setProperty(PROP_MODIFIER, new Date());
             datastoreService.put(entity);
         } catch (EntityNotFoundException e) {
@@ -99,7 +100,7 @@ public class DatastoreNotesDao implements NotesDao {
     private Note getNoteFromEntity(Entity entity) {
         return new Note(
                 String.valueOf(entity.getKey().getId()),
-                (String) entity.getProperty(PROP_CONTENT),
+                ((Text) entity.getProperty(PROP_CONTENT)).getValue(),
                 (Date) entity.getProperty(PROP_CREATED),
                 (Date) entity.getProperty(PROP_MODIFIER));
     }
