@@ -1,6 +1,7 @@
 import { TypedAction } from 'redoodle';
 import { loadNotes } from '@src/store/actions/notesAsync';
 import { Dispatch } from 'redux';
+import { ShowError } from '@src/store/actions/error';
 
 const CLIENT_ID = '998747770178-tsvdpds9s2kam1u57u67ltuj383f7p3s.apps.googleusercontent.com';
 
@@ -33,5 +34,9 @@ export const initAuth = () => (dispatch: Dispatch<any>) => {
       .listen((newIsSignedIn: boolean) => updateSignInStatus(newIsSignedIn, dispatch));
     const isSignedIn = gapi.auth2.getAuthInstance().isSignedIn.get();
     updateSignInStatus(isSignedIn, dispatch);
+  },
+  (error: any) => {
+    const message = `Error loading app: ${error.details || ''}`;
+    dispatch(ShowError.create({ message, error }));
   });
 };
