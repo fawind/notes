@@ -5,9 +5,11 @@ import { StartLoading, StopLoading } from '@src/store/actions/loading';
 import { ShowError } from '@src/store/actions/error';
 import { NotesServiceProvider } from '@src/service/notesService';
 import { INote } from '@src/model';
+import { refreshToken } from '@src/store/actions/auth';
 
 export const loadNotes = () => async (dispatch: Dispatch) => {
   dispatch(StartLoading.create());
+  await refreshToken(dispatch);
   try {
     const notes: INote[] = await NotesServiceProvider.get().getNotes();
     dispatch(CompoundAction.create([
@@ -21,6 +23,7 @@ export const loadNotes = () => async (dispatch: Dispatch) => {
 
 export const addNote = () => async (dispatch: Dispatch) => {
   dispatch(StartLoading.create());
+  await refreshToken(dispatch);
   try {
     const noteId = await NotesServiceProvider.get().createNote();
     dispatch(CompoundAction.create([
@@ -35,6 +38,7 @@ export const addNote = () => async (dispatch: Dispatch) => {
 
 export const deleteNote = (noteId: string) => async (dispatch: Dispatch) => {
   dispatch(StartLoading.create());
+  await refreshToken(dispatch);
   try {
     await NotesServiceProvider.get().deleteNote(noteId);
     dispatch(CompoundAction.create([
@@ -48,6 +52,7 @@ export const deleteNote = (noteId: string) => async (dispatch: Dispatch) => {
 
 export const saveNote = (noteId: string, content: string) => async (dispatch: Dispatch) => {
   dispatch(StartLoading.create());
+  await refreshToken(dispatch);
   try {
     await NotesServiceProvider.get().updateNote(noteId, content);
     dispatch(CompoundAction.create([

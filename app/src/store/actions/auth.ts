@@ -40,3 +40,17 @@ export const initAuth = () => (dispatch: Dispatch<any>) => {
     dispatch(ShowError.create({ message, error }));
   });
 };
+
+export const isTokenExpired = () => {
+  const EXPIRATION_OFFSET = 10 * 60 * 1000; // 10 min
+  const expiresAt = gapi.auth2.getAuthInstance()
+    .currentUser.get().getAuthResponse().expires_at;
+  return new Date() > new Date(expiresAt - EXPIRATION_OFFSET);
+};
+
+export const refreshToken = async (dispatch: Dispatch<any>) => {
+    if (isTokenExpired()) {
+      await gapi.auth2.getAuthInstance().currentUser.get().reloadAuthResponse()
+        .then(authResponse => dispatch(SignedIn.create({ idToken: authResponse.id_token })));
+    }
+};
