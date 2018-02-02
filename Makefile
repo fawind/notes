@@ -12,6 +12,9 @@ runService:
 runApp:
 	(cd app && npm start)
 
-deploy: test
-	(cd app && npm run dist) && gradle -p ./service appengineDeploy
+build: test
+	(cd app && npm run dist) && gradle -p ./service build
+
+deploy: build
+	gradle -p ./service appengineDeploy
 

@@ -14,8 +14,12 @@ html, body {
     cursor: col-resize;
 }
 
-.SplitPane .Pane1 {
-    display: flex;
+.SplitPane .Pane.vertical.Pane1 {
+    overflow-y: scroll;
+}
+
+.SplitPane .Pane1::-webkit-scrollbar {
+    display: none;
 }
 
 .icon {
